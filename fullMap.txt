@@ -1,0 +1,20 @@
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+           [Quarters]                             
+               |                                  
+[Cryo] -> [Weapons] -> [Thrusters]
+  |                                           
+[Reactor] -> [Science Lab]                      
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
+                                                  
