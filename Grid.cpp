@@ -2,7 +2,30 @@
 #include <conio.h>
 #include "Grid.h"
 
-using namespace std;
+std::string strLowerGrid(std::string inputString){
+
+    int stringLength = inputString.length();
+
+    std::string result = "";
+
+    for(int i = 0; i < stringLength; i++){
+
+        if(inputString[i] >= 'A' && inputString[i] <= 'Z'){
+
+            result += inputString[i] + 32;
+
+        }else{
+
+            result += inputString[i];
+
+        }
+            
+
+    }
+
+    return result;
+
+}
 
 Grid::Grid(){
 
@@ -47,20 +70,20 @@ Grid::Grid(){
 
 }
 
-void Grid::loadMap(string fileName){
+void Grid::loadMap(std::string fileName){
 
-    ifstream readFile;
+    std::ifstream readFile;
 
     readFile.open(fileName);
 
     if(readFile.fail()){
 
-        cout << "[ERROR] Cannot read file: " << fileName << endl;
+        std::cout << "[ERROR] Cannot read file: " << fileName << std::endl;
         return;
 
     }
 
-    string line = "";
+    std::string line = "";
     int lineLength = 0;
 
     int row = 0;
@@ -83,20 +106,20 @@ void Grid::loadMap(string fileName){
 
 }
 
-void Grid::loadMap(string fileName, vector<Cell> anomolies){
+void Grid::loadMap(std::string fileName, std::vector<Cell> anomolies){
 
-    ifstream readFile;
+    std::ifstream readFile;
 
     readFile.open(fileName);
 
     if(readFile.fail()){
 
-        cout << "[ERROR] Cannot read file: " << fileName << endl;
+        std::cout << "[ERROR] Cannot read file: " << fileName << std::endl;
         return;
 
     }
 
-    string line = "";
+    std::string line = "";
     int lineLength = 0;
 
     int row = 0;
@@ -143,17 +166,17 @@ void Grid::printMap(bool vision){
 
                 if(visiMap[mapToIndex()][row][col]){
 
-                    cout << map[row][col];
+                    std::cout << map[row][col];
 
                 }else{
 
-                    cout << '"';
+                    std::cout << '"';
 
                 }
 
             }
 
-            cout << endl;
+            std::cout << std::endl;
 
         }
 
@@ -163,11 +186,11 @@ void Grid::printMap(bool vision){
 
             for(int col = 0; col < colSize; col++){
 
-                cout << map[row][col];
+                std::cout << map[row][col];
 
             }
 
-            cout << endl;
+            std::cout << std::endl;
 
         }
 
@@ -175,9 +198,9 @@ void Grid::printMap(bool vision){
 
 }
 
-string Grid::getCell(int xPos, int yPos){
+std::string Grid::getCell(int xPos, int yPos){
 
-    string cell = "[";
+    std::string cell = "[";
 
     if(xPos < 0 || xPos >= colSize || yPos < 0 || yPos >= rowSize){
 
@@ -193,9 +216,9 @@ string Grid::getCell(int xPos, int yPos){
 
 }
 
-string Grid::getCell(string direction){
+std::string Grid::getCell(std::string direction){
 
-    string cell = "[";
+    std::string cell = "[";
 
     if(direction == "North" && playerPosition.yPos - 1 >= 0){
 
@@ -221,7 +244,7 @@ string Grid::getCell(string direction){
 
 }
 
-string Grid::getCurrMap(){
+std::string Grid::getCurrMap(){
 
     return currMap;
 
@@ -273,18 +296,18 @@ bool Grid::drawPlayer(Player currentPlayer){
 
 }
 
-void Grid::setCurrMap(string currMap_){
+void Grid::setCurrMap(std::string currMap_){
 
     currMap = currMap_;
 
 }
 
-bool Grid::movePlayer(string facing, Player &currentPlayer){
+bool Grid::movePlayer(std::string facing, Player &currentPlayer){
 
     int xPos = currentPlayer.getXPos();
     int yPos = currentPlayer.getYPos();
 
-    string speed = currentPlayer.getSpeed();
+    std::string speed = currentPlayer.getSpeed();
 
     int sneakDist = 1;
     int walkDist = 2;
@@ -303,7 +326,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if((yPos - sneakDist) < 0){ // Out of bounds
 
-                cout << "[ERROR] Out of Bounds" << endl;
+                std::cout << "[ERROR] Out of Bounds" << std::endl;
                 return false;
 
             }
@@ -322,7 +345,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             }else{
 
-                cout << "[ERROR] Spot is not empty!" << endl;
+                std::cout << "[ERROR] Spot is not empty!" << std::endl;
                 return false;
 
             }
@@ -331,7 +354,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("North", xPos, yPos) == -1){
 
-                cout << "[ERROR] North Wall Dist" << endl;
+                std::cout << "[ERROR] North Wall Dist" << std::endl;
                 return false;
 
             }else{
@@ -376,7 +399,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("North", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -420,7 +443,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
         }else{
 
-            cout << "[ERROR] Invalid Speed!" << endl;
+            std::cout << "[ERROR] Invalid Speed!" << std::endl;
             return false;
 
         }
@@ -436,7 +459,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if((xPos + sneakDist) >= colSize){ // Out of bounds
 
-                cout << "[ERROR] Out of Bounds" << endl;
+                std::cout << "[ERROR] Out of Bounds" << std::endl;
                 return false;
 
             }
@@ -455,7 +478,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             }else{
 
-                cout << "[ERROR] Spot is not empty!" << endl;
+                std::cout << "[ERROR] Spot is not empty!" << std::endl;
                 return false;
 
             }
@@ -464,7 +487,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
              if(distToWall("East", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -509,7 +532,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("East", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -552,7 +575,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
         }else{
 
-            cout << "[ERROR] Invalid Speed!" << endl;
+            std::cout << "[ERROR] Invalid Speed!" << std::endl;
             return false;
 
         }
@@ -570,7 +593,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if((yPos + sneakDist) >= rowSize){ // Out of bounds
 
-                cout << "[ERROR] Out of Bounds" << endl;
+                std::cout << "[ERROR] Out of Bounds" << std::endl;
                 return false;
 
             }
@@ -597,7 +620,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("South", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -642,7 +665,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("South", xPos, yPos) == -1){ // Checking distance to wall, going to nearest spot
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -685,7 +708,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
         }else{
 
-            cout << "[ERROR] Invalid Speed!" << endl;
+            std::cout << "[ERROR] Invalid Speed!" << std::endl;
             return false;
 
         }
@@ -701,7 +724,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if((xPos - sneakDist) < 0){ // Out of bounds
 
-                cout << "[ERROR] Out of Bounds" << endl;
+                std::cout << "[ERROR] Out of Bounds" << std::endl;
                 return false;
 
             }
@@ -720,7 +743,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             }else{
 
-                cout << "[ERROR] Spot is not empty!" << endl;
+                std::cout << "[ERROR] Spot is not empty!" << std::endl;
                 return false;
 
             }
@@ -729,7 +752,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("West", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -774,7 +797,7 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
             if(distToWall("West", xPos, yPos) == -1){
 
-                cout << "[ERROR] Out of Bounds (dist)" << endl;
+                std::cout << "[ERROR] Out of Bounds (dist)" << std::endl;
                 return false;
 
             }else{
@@ -817,14 +840,14 @@ bool Grid::movePlayer(string facing, Player &currentPlayer){
 
         }else{
 
-            cout << "[ERROR] Invalid Speed!" << endl;
+            std::cout << "[ERROR] Invalid Speed!" << std::endl;
             return false;
 
         }
 
     }else{
 
-        cout << "[ERROR] Invalid Direction!" << endl;
+        std::cout << "[ERROR] Invalid Direction!" << std::endl;
         return false;
 
     }
@@ -931,7 +954,7 @@ int Grid::distToWall(std::string direction, int xPos_, int yPos_){
 
     }
 
-    cout << "[ERROR] Invalid Direction! (distToWall)" << endl;
+    std::cout << "[ERROR] Invalid Direction! (distToWall)" << std::endl;
     return -1;   
 
 }
@@ -993,7 +1016,7 @@ bool Grid::checkForNearbyItems(){
 
 }
 
-bool Grid::modFixCheck(string modName){
+bool Grid::modFixCheck(std::string modName){
 
     if(modName == "cryo"){
 
@@ -1128,7 +1151,7 @@ Coordinates Grid::nearbyCoords(std::string objectCell){
 
 void Grid::printPlrPos(){
 
-    cout << "[MAP Plr Pos] = (" << playerPosition.xPos << ", " << playerPosition.yPos << ")" << endl;
+    std::cout << "[MAP Plr Pos] = (" << playerPosition.xPos << ", " << playerPosition.yPos << ")" << std::endl;
 
 }
 
@@ -1137,7 +1160,7 @@ bool Grid::checkForNearbyAliens(){
     int xPos = playerPosition.xPos;
     int yPos = playerPosition.yPos;
 
-    string alienCell = "[@]";
+    std::string alienCell = "[@]";
 
     if(getCell("North") == alienCell ){
 
@@ -1196,7 +1219,7 @@ bool Grid::checkForNearbyDoors(){
     int xPos = playerPosition.xPos;
     int yPos = playerPosition.yPos;
 
-    string doorCell = "[#]";
+    std::string doorCell = "[#]";
 
     if(getCell("North") == doorCell ){
 
@@ -1255,8 +1278,8 @@ bool Grid::checkForNearbyModules(){
     int xPos = playerPosition.xPos;
     int yPos = playerPosition.yPos;
 
-    string modCell = "[[]";
-    string modCell2 = "[]]";
+    std::string modCell = "[[]";
+    std::string modCell2 = "[]]";
 
     if(getCell("South") == "[*]" && getCell(xPos + 1, yPos + 1) == "[=]" && getCell(xPos - 1, yPos + 1) == "[=]"){
 
@@ -1316,7 +1339,7 @@ bool Grid::checkForNearbyModules(){
 
 }
 
-void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies){
+void Grid::changeMap(Player &currentPlayer, std::vector<std::vector<Cell>> anomolies){
 
     //0. Cryochambers
     //1. Reactor
@@ -1382,7 +1405,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies){
 
         }else{
 
-            cout << coordsHolder.yPos << endl;
+            std::cout << coordsHolder.yPos << std::endl;
 
         }
 
@@ -1399,7 +1422,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies){
 
         }else{
 
-            cout << coordsHolder.xPos << endl;
+            std::cout << coordsHolder.xPos << std::endl;
 
         }
 
@@ -1462,7 +1485,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies){
     }
 }
 
-void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, string mapName){
+void Grid::changeMap(Player &currentPlayer, std::vector<std::vector<Cell>> anomolies, std::string mapName){
 
     //0. Cryochambers
     //1. Reactor
@@ -1480,7 +1503,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
     validFlares.clear();
 
-    if(mapName == "Cryochambers"){ // Cryo 
+    if(strLowerGrid(mapName) == "cryochambers" || strLowerGrid(mapName) == "cryo"){ // Cryo 
 
         loadMap("Cryochambers.txt", anomolies[cryo]);  
 
@@ -1489,7 +1512,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
         drawPlayer(currentPlayer);
 
-    }else if(mapName == "Reactor"){ // Reactor 
+    }else if(strLowerGrid(mapName) == "reactor"){ // Reactor 
 
         loadMap("Reactor.txt", anomolies[reactor]);
 
@@ -1498,7 +1521,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
         drawPlayer(currentPlayer);
 
-    }else if(mapName == "Science"){ // Science Lab Doors
+    }else if(strLowerGrid(mapName) == "science"){ // Science Lab Doors
 
         loadMap("Science.txt", anomolies[science]);
 
@@ -1507,7 +1530,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
         drawPlayer(currentPlayer);
 
-    }else if(mapName == "Weapons"){ // Weapons Doors
+    }else if(strLowerGrid(mapName) == "weapons"){ // Weapons Doors
 
         loadMap("Weapons.txt", anomolies[weapons]);
 
@@ -1516,7 +1539,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
         drawPlayer(currentPlayer);
 
-    }else if(mapName == "Quarters"){ // Quarters Doors
+    }else if(strLowerGrid(mapName) == "quarters"){ // Quarters Doors
 
         loadMap("Quarters.txt", anomolies[quarters]);
 
@@ -1525,7 +1548,7 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
         drawPlayer(currentPlayer);
 
-    }else if(mapName == "Thrusters"){ // Thrusters Doors
+    }else if(strLowerGrid(mapName) == "thrusters"){ // Thrusters Doors
 
         loadMap("Thrusters.txt", anomolies[thrusters]);
 
@@ -1536,76 +1559,51 @@ void Grid::changeMap(Player &currentPlayer, vector<vector<Cell>> anomolies, stri
 
     }else{
 
-        cout << "[INVALID MAP NAME]" << endl;
+        std::cout << "[INVALID MAP NAME]" << std::endl;
 
     }
-}
-
-string strLowerGrid(string inputString){
-
-    int stringLength = inputString.length();
-
-    string result = "";
-
-    for(int i = 0; i < stringLength; i++){
-
-        if(inputString[i] >= 'A' && inputString[i] <= 'Z'){
-
-            result += inputString[i] + 32;
-
-        }else{
-
-            result += inputString[i];
-
-        }
-            
-
-    }
-
-    return result;
-
 }
 
 void modSpacer(){
 
     for(int i = 0; i < 8; i++){
 
-        cout << endl;
+        std::cout << std::endl;
 
     }
 
 }
 
-string Grid::modGame(Player &currentPlayer){
+std::string Grid::modGame(Player &currentPlayer){
 
     char buttonPress = 'a';
-    string input = "";
+    std::string input = "";
 
     if(nearbyCoords("[^]").xPos != -1 && !reactorFixed){ // Power Module
 
-        cout << "[SYSTEM MESSAGE]: Welcome to the Centralized Fusion Reactor!" << endl;
-        cout << "[POWER LEVEL]: 0%" << endl;
-        cout << "[SYSTEM MESSAGE]: Please input a fuel cell into the cell chamber." << endl;
+        std::cout << "[SYSTEM MESSAGE]: Welcome to the Centralized Fusion Reactor!" << std::endl;
+        std::cout << "[POWER LEVEL]: 0%" << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Please input a fuel cell into the cell chamber." << std::endl;
 
         currentPlayer.printInventory();
 
-        getline(cin, input);
+        getline(std::cin, input);
 
         while(strLowerGrid(input) != "tritium cell" && strLowerGrid(input) != "exit" ){
 
-            cout << endl;
+            std::cout << std::endl;
 
-            cout << "Non-viable fuel source, please place a Tritium based cell into the chamber." << endl;
+            std::cout << "Non-viable fuel source, please place a Tritium based cell into the chamber." << std::endl;
 
-            getline(cin, input);
+            getline(std::cin, input);
 
-            cout << endl;
+            std::cout << std::endl;
 
         }
 
         if(strLowerGrid(input) == "exit"){
 
-            cout << "[SYSTEM MESSAGE]: Goodbye!" << endl;
+            std::cout << "[SYSTEM MESSAGE]: Goodbye!" << std::endl;
 
             return "";
 
@@ -1613,106 +1611,106 @@ string Grid::modGame(Player &currentPlayer){
 
         if(!currentPlayer.getInventoryItem("Tritium Cell")){
 
-            cout << "You do not have the fuel source! The cell is contained within the Thruster bay." << endl;
+            std::cout << "You do not have the fuel source! The cell is contained within the Thruster bay." << std::endl;
             return "";
 
         }
 
-        cout << endl;
+        std::cout << std::endl;
 
-        cout << "[POWER LEVEL]: 100%" << endl;
-        cout << "[SYSTEM MESSAGE]: Power restored!" << endl;
-        cout << endl;
-        cout << "[ENTER TO CONTINUE]" << endl;
-        getline(cin, input);
+        std::cout << "[POWER LEVEL]: 100%" << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Power restored!" << std::endl;
+        std::cout << std::endl;
+        std::cout << "[ENTER TO CONTINUE]" << std::endl;
+        getline(std::cin, input);
 
         reactorFixed = true;;
 
         return "powerEnabled";
 
-    }else if(!reactorFixed && !(nearbyCoords("[<]").xPos != -1 && nearbyCoords("[>]").xPos != -1)){ // If reactor not fixed and not beginning module
+    }else if(!reactorFixed && !(nearbyCoords("[<]").xPos != -1 || nearbyCoords("[>]").xPos != -1)){ // If reactor not fixed and not beginning module
 
-        cout << "Hmm, this module needs power. I need to put a cell in the Reactor and the cells got left in the thruster bay." << endl;
+        std::cout << "Hmm, this module needs power. I need to put a cell in the Reactor and the cells got left in the thruster bay." << std::endl;
         return "";
 
     }
 
     if(nearbyCoords("[$]").xPos != -1){ // Reactor Locked Door Game
 
-        cout << "[DOOR LOCK CONTROLS]" << endl;
-        cout << "|Enter admin code to unlock doors or type exit to leave: ";
+        std::cout << "[DOOR LOCK CONTROLS]" << std::endl;
+        std::cout << "|Enter admin code to unlock doors or type exit to leave: ";
 
-        getline(cin, input);
+        getline(std::cin, input);
 
         while(input != "5783" && input != "exit"){
 
-            cout << "Incorrect code! Please input the correct code!" << endl;
+            std::cout << "Incorrect code! Please input the correct code!" << std::endl;
 
-            getline(cin, input);
+            getline(std::cin, input);
 
         }
 
         if(input == "exit"){
 
-            cout << "Leaving program..." << endl;
+            std::cout << "Leaving program..." << std::endl;
             return "";
 
         }
 
-        cout << "Access Granted! Doors unlocking..." << endl;
+        std::cout << "Access Granted! Doors unlocking..." << std::endl;
         scienceDoorsOpen = true;
 
         return "doors";
 
-    }else if(nearbyCoords("[<]").xPos != -1 && nearbyCoords("[>]").xPos != -1){ // Beginning Module
+    }else if(nearbyCoords("[<]").xPos != -1 || nearbyCoords("[>]").xPos != -1){ // Beginning Module
 
         if(beginningAccomplished){
 
-            cout << endl;
-            cout << endl;
+            std::cout << std::endl;
+            std::cout << std::endl;
 
-            cout << "[EMERGENCY POWER ACTIVATED]" << endl;
-            cout << "[RELOADING PRE-MADE MESSAGE]..." << endl;
-            cout << "[Captain Acker]: Hello crew! I hope you have brought all you need and are all settled in." << endl;
-            cout << "[Captain Acker]: Once we make contact, I will have the scientists collect a sample using our specially designed syringe." << endl;
-            cout << "[Captain Acker]: This will be left in the science lab, which is Southeast of the cryo-chambers. Thanks again for your dedication and volunteerism!" << endl;
+            std::cout << "[EMERGENCY POWER ACTIVATED]" << std::endl;
+            std::cout << "[RELOADING PRE-MADE MESSAGE]..." << std::endl;
+            std::cout << "[Captain Acker]: Hello crew! I hope you have brought all you need and are all settled in." << std::endl;
+            std::cout << "[Captain Acker]: Once we make contact, I will have the scientists collect a sample using our specially designed syringe." << std::endl;
+            std::cout << "[Captain Acker]: This will be left in the science lab, which is Southeast of the cryo-chambers. Thanks again for your dedication and volunteerism!" << std::endl;
             
             return "";
 
         }
 
-        cout << "Unscramble the text: [ Y G T V I A R ] or type exit to leave." << endl;
+        std::cout << "Unscramble the text: [ Y G T V I A R ] or type exit to leave." << std::endl;
 
-        getline(cin, input);
+        getline(std::cin, input);
 
         while(strLowerGrid(input) != "gravity" && input != "exit"){
 
-            cout << endl;
-            cout << "Incorrect solution! Try Again: [ Y G T V I A R ]" << endl;
-            cout << endl;
-            getline(cin, input);
+            std::cout << std::endl;
+            std::cout << "Incorrect solution! Try Again: [ Y G T V I A R ]" << std::endl;
+            std::cout << std::endl;
+            getline(std::cin, input);
 
         }
 
         if(input == "exit"){
 
-            cout << "Leaving program..." << endl;
+            std::cout << "Leaving program..." << std::endl;
             return "";
 
         }
 
-        cout << endl;
-        cout << endl;
+        std::cout << std::endl;
+        std::cout << std::endl;
 
-        cout << "[EMERGENCY POWER ACTIVATED]" << endl;
-        cout << "[LOADING PRE-MADE MESSAGE]..." << endl;
-        cout << "[Captain Acker]: Hello crew! I hope you have brought all you need and are all settled in." << endl;
-        cout << "[Captain Acker]: Once we make contact, I will have the scientists collect a sample using our specially designed syringe." << endl;
-        cout << "[Captain Acker]: This will be left in the science lab, which is Southeast of the cryo-chambers. Thanks again for your dedication and volunteerism!" << endl;
+        std::cout << "[EMERGENCY POWER ACTIVATED]" << std::endl;
+        std::cout << "[LOADING PRE-MADE MESSAGE]..." << std::endl;
+        std::cout << "[Captain Acker]: Hello crew! I hope you have brought all you need and are all settled in." << std::endl;
+        std::cout << "[Captain Acker]: Once we make contact, I will have the scientists collect a sample using our specially designed syringe." << std::endl;
+        std::cout << "[Captain Acker]: This will be left in the science lab, which is Southeast of the cryo-chambers. Thanks again for your dedication and volunteerism!" << std::endl;
 
-        cout << endl;
-        cout << "Well, I guess it's just me now. Seems like the power is off, I need to put a cell into the Reactor. I last saw the cell in the Thruster bay." << endl;
-        cout << endl;
+        std::cout << std::endl;
+        std::cout << "Well, I guess it's just me now. Seems like the power is off, I need to put a cell into the Reactor. I last saw the cell in the Thruster bay." << std::endl;
+        std::cout << std::endl;
         beginningAccomplished = true;
 
         return "beginning";
@@ -1722,32 +1720,32 @@ string Grid::modGame(Player &currentPlayer){
         bool movingBarrel = true;
         bool leftOrRight = true;
 
-        string topBarrel = "      ";
-        string midBarrel = " ";
-        string bottomBarrel = "       ";
+        std::string topBarrel = "      ";
+        std::string midBarrel = " ";
+        std::string bottomBarrel = "       ";
 
-        cout << endl;
-        cout << "[SENTRY SYSTEM OFFLINE] MAJOR ALARM TRIGGERED" << endl;
-        cout << "= BARREL MISALIGNED = CHOOSE CORRECT ALIGNMENT =" << endl;
+        std::cout << std::endl;
+        std::cout << "[SENTRY SYSTEM OFFLINE] MAJOR ALARM TRIGGERED" << std::endl;
+        std::cout << "= BARREL MISALIGNED = CHOOSE CORRECT ALIGNMENT =" << std::endl;
 
         while(movingBarrel){
 
-            cout << endl;
-            cout << "[BARREL CONFIGURATION]" << endl;
-            cout << "-------[  ]------- [MAIN CONNECTION PORT]" << endl;
-            cout << topBarrel<< "==|  |== [1]" << endl;
-            cout << midBarrel << "==|  |== [2]" << endl;
-            cout << bottomBarrel << "==|  |== [3]" << endl;
-            cout << endl;
+            std::cout << std::endl;
+            std::cout << "[BARREL CONFIGURATION]" << std::endl;
+            std::cout << "-------[  ]------- [MAIN CONNECTION PORT]" << std::endl;
+            std::cout << topBarrel<< "==|  |== [1]" << std::endl;
+            std::cout << midBarrel << "==|  |== [2]" << std::endl;
+            std::cout << bottomBarrel << "==|  |== [3]" << std::endl;
+            std::cout << std::endl;
 
-            cout << "Press 1-3 to move a certain barrel or X to exit" << endl;
+            std::cout << "Press 1-3 to move a certain barrel or X to exit" << std::endl;
 
             buttonPress = _getch();
             input = buttonPress;
 
             while(input != "1" && input != "2" && input != "3" && strLowerGrid(input) != "x"){
 
-                cout << "Please press 1-3 to move a certain barrel or X to exit" << endl;
+                std::cout << "Please press 1-3 to move a certain barrel or X to exit" << std::endl;
 
                 buttonPress = _getch();
                 input = buttonPress;
@@ -1760,14 +1758,14 @@ string Grid::modGame(Player &currentPlayer){
 
                 while(leftOrRight){
 
-                    cout << "[MOVING BARREL 1] L to move left, R to move right, X to leave barrel" << endl;
+                    std::cout << "[MOVING BARREL 1] L to move left, R to move right, X to leave barrel" << std::endl;
 
                     buttonPress = _getch();
                     input = buttonPress;
 
                     while(strLowerGrid(input) != "l" && strLowerGrid(input) != "r" && strLowerGrid(input) != "x"){
 
-                        cout << "Please press L or R or X to exit barrel" << endl;
+                        std::cout << "Please press L or R or X to exit barrel" << std::endl;
 
                         buttonPress = _getch();
                         input = buttonPress;
@@ -1784,13 +1782,13 @@ string Grid::modGame(Player &currentPlayer){
 
                     }
 
-                    cout << endl;
-                    cout << "[BARREL CONFIGURATION]" << endl;
-                    cout << "-------[  ]------- [MAIN CONNECTION PORT]" << endl;
-                    cout << topBarrel<< "==|  |== [1]" << endl;
-                    cout << midBarrel << "==|  |== [2]" << endl;
-                    cout << bottomBarrel << "==|  |== [3]" << endl;
-                    cout << endl;
+                    std::cout << std::endl;
+                    std::cout << "[BARREL CONFIGURATION]" << std::endl;
+                    std::cout << "-------[  ]------- [MAIN CONNECTION PORT]" << std::endl;
+                    std::cout << topBarrel<< "==|  |== [1]" << std::endl;
+                    std::cout << midBarrel << "==|  |== [2]" << std::endl;
+                    std::cout << bottomBarrel << "==|  |== [3]" << std::endl;
+                    std::cout << std::endl;
 
                     if(strLowerGrid(input) == "x"){
 
@@ -1807,14 +1805,14 @@ string Grid::modGame(Player &currentPlayer){
 
                 while(leftOrRight){
 
-                    cout << "[MOVING BARREL 2] L to move left, R to move right, X to leave barrel" << endl;
+                    std::cout << "[MOVING BARREL 2] L to move left, R to move right, X to leave barrel" << std::endl;
 
                     buttonPress = _getch();
                     input = buttonPress;
 
                     while(strLowerGrid(input) != "l" && strLowerGrid(input) != "r" && strLowerGrid(input) != "x"){
 
-                        cout << "Please press L or R or X to exit barrel" << endl;
+                        std::cout << "Please press L or R or X to exit barrel" << std::endl;
 
                         buttonPress = _getch();
                         input = buttonPress;
@@ -1831,13 +1829,13 @@ string Grid::modGame(Player &currentPlayer){
 
                     }
 
-                    cout << endl;
-                    cout << "[BARREL CONFIGURATION]" << endl;
-                    cout << "-------[  ]------- [MAIN CONNECTION PORT]" << endl;
-                    cout << topBarrel<< "==|  |== [1]" << endl;
-                    cout << midBarrel << "==|  |== [2]" << endl;
-                    cout << bottomBarrel << "==|  |== [3]" << endl;
-                    cout << endl;
+                    std::cout << std::endl;
+                    std::cout << "[BARREL CONFIGURATION]" << std::endl;
+                    std::cout << "-------[  ]------- [MAIN CONNECTION PORT]" << std::endl;
+                    std::cout << topBarrel<< "==|  |== [1]" << std::endl;
+                    std::cout << midBarrel << "==|  |== [2]" << std::endl;
+                    std::cout << bottomBarrel << "==|  |== [3]" << std::endl;
+                    std::cout << std::endl;
 
                     if(strLowerGrid(input) == "x"){
 
@@ -1854,14 +1852,14 @@ string Grid::modGame(Player &currentPlayer){
 
                 while(leftOrRight){
 
-                    cout << "[MOVING BARREL 3] L to move left, R to move right, X to leave barrel" << endl;
+                    std::cout << "[MOVING BARREL 3] L to move left, R to move right, X to leave barrel" << std::endl;
 
                     buttonPress = _getch();
                     input = buttonPress;
 
                     while(strLowerGrid(input) != "l" && strLowerGrid(input) != "r" && strLowerGrid(input) != "x"){
 
-                        cout << "Please type L or R or X to exit barrel" << endl;
+                        std::cout << "Please type L or R or X to exit barrel" << std::endl;
 
                         buttonPress = _getch();
                         input = buttonPress;
@@ -1878,13 +1876,13 @@ string Grid::modGame(Player &currentPlayer){
 
                     }
 
-                    cout << endl;
-                    cout << "[BARREL CONFIGURATION]" << endl;
-                    cout << "-------[  ]-------" << endl;
-                    cout << topBarrel<< "==|  |==" << endl;
-                    cout << midBarrel << "==|  |==" << endl;
-                    cout << bottomBarrel << "==|  |==" << endl;
-                    cout << endl;
+                    std::cout << std::endl;
+                    std::cout << "[BARREL CONFIGURATION]" << std::endl;
+                    std::cout << "-------[  ]-------" << std::endl;
+                    std::cout << topBarrel<< "==|  |==" << std::endl;
+                    std::cout << midBarrel << "==|  |==" << std::endl;
+                    std::cout << bottomBarrel << "==|  |==" << std::endl;
+                    std::cout << std::endl;
 
                     if(strLowerGrid(input) == "x"){
 
@@ -1897,14 +1895,14 @@ string Grid::modGame(Player &currentPlayer){
 
             }else{
 
-                cout << "Exiting Barrel Alignment..." << endl;
+                std::cout << "Exiting Barrel Alignment..." << std::endl;
                 return "";
 
             }
 
             if(topBarrel.length() == 5 && midBarrel.length() == 5 && bottomBarrel.length() == 5){
 
-                cout <<"[SENTRY SYSTEM ONLINE] BARREL ALIGNED" << endl;
+                std::cout <<"[SENTRY SYSTEM ONLINE] BARREL ALIGNED" << std::endl;
 
                 weaponsFixed = true;
 
@@ -1918,10 +1916,10 @@ string Grid::modGame(Player &currentPlayer){
 
         if(!overrideComplete){
 
-            cout << "[SYSTEM MESSAGE]: POWER RESET DETECTED" << endl;
-            cout << "[SYSTEM MESSAGE]: PERSONAL ARMORY LOCKED" << endl;
-            cout << endl;
-            cout << "Maybe I can override this. I last remember the keys in the Corporals room. I'll check there." << endl;
+            std::cout << "[SYSTEM MESSAGE]: POWER RESET DETECTED" << std::endl;
+            std::cout << "[SYSTEM MESSAGE]: PERSONAL ARMORY LOCKED" << std::endl;
+            std::cout << std::endl;
+            std::cout << "Maybe I can override this. I last remember the keys in the Corporals room. I'll check there." << std::endl;
 
             return "";
 
@@ -1929,35 +1927,35 @@ string Grid::modGame(Player &currentPlayer){
 
         if(armoryUnlocked){
 
-            cout << "[SYSTEM MESSAGE]: WeCOme CaaIn ACeR!" << endl;
-            cout << "[POWER ERROR]: ARMORY MOTOR BLOWN" << endl;
-            cout << endl;
-            cout << "Damn, guess I'll stick with what I got..." << endl;
+            std::cout << "[SYSTEM MESSAGE]: WeCOme CaaIn ACeR!" << std::endl;
+            std::cout << "[POWER ERROR]: ARMORY MOTOR BLOWN" << std::endl;
+            std::cout << std::endl;
+            std::cout << "Damn, guess I'll stick with what I got..." << std::endl;
 
             return "";
 
         }
 
-        cout << "[SYSTEM MESSAGE]: Welcome Captain Acker!" << endl;
-        cout << "[SYSTEM MESSAGE]: Please pick which locker to open or type EXIT:" << endl;
-        cout << "[LOCKER 1]: Flamethrower, Flares" << endl;
-        cout << "[LOCKER 2]: Shotgun, Medkit" << endl;
+        std::cout << "[SYSTEM MESSAGE]: Welcome Captain Acker!" << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Please pick which locker to open or type EXIT:" << std::endl;
+        std::cout << "[LOCKER 1]: Flamethrower, Flares" << std::endl;
+        std::cout << "[LOCKER 2]: Shotgun, Medkit" << std::endl;
 
-        getline(cin, input);
+        getline(std::cin, input);
 
         while(input != "1" && input != "2" && strLowerGrid(input) != "exit"){
 
-            cout << endl;
+            std::cout << std::endl;
 
-            cout << "Please type 1 or 2 or exit" << endl;
+            std::cout << "Please type 1 or 2 or exit" << std::endl;
             
-            getline(cin, input);
+            getline(std::cin, input);
 
         }
 
         if(strLowerGrid(input) == "exit"){
 
-            cout << "[SYSTEM MESSAGE]: Goodbye!" << endl;
+            std::cout << "[SYSTEM MESSAGE]: Goodbye!" << std::endl;
             return "";
 
         }
@@ -1966,7 +1964,7 @@ string Grid::modGame(Player &currentPlayer){
 
         if(input == "1"){
 
-            cout << "[SYSTEM MESSAGE]: Opening Locker 1..." << endl;
+            std::cout << "[SYSTEM MESSAGE]: Opening Locker 1..." << std::endl;
 
             return "locker1";
 
@@ -1974,7 +1972,7 @@ string Grid::modGame(Player &currentPlayer){
 
         if(input == "2"){
 
-            cout << "[SYSTEM MESSAGE]: Opening Locker 2..." << endl;
+            std::cout << "[SYSTEM MESSAGE]: Opening Locker 2..." << std::endl;
 
             return "locker2";
 
@@ -1984,13 +1982,13 @@ string Grid::modGame(Player &currentPlayer){
 
         if(!currentPlayer.getInventoryItem("Override Key")){
 
-            cout << "This is the override panel. It looks like there's a key slot. There should be a key in the Corporals room." << endl;
+            std::cout << "This is the override panel. It looks like there's a key slot. There should be a key in the Corporals room." << std::endl;
             return "";
 
         }
 
-        cout << "The key slot on the override panel seems to match the size of the key I found. Let's try it." << endl;
-        cout << " *The key turns and a loud ping sounds from the panel" << endl;
+        std::cout << "The key slot on the override panel seems to match the size of the key I found. Let's try it." << std::endl;
+        std::cout << " *The key turns and a loud ping sounds from the panel" << std::endl;
 
         overrideComplete = true;
 
@@ -2000,57 +1998,57 @@ string Grid::modGame(Player &currentPlayer){
 
         if(!overrideComplete){
 
-            cout << "[SYSTEM ERROR]: Credentials for Auto Science Desk locked, please compelete override procedures located in the Thruster Bay." << endl;
-            cout << endl;
+            std::cout << "[SYSTEM ERROR]: Credentials for Auto Science Desk locked, please compelete override procedures located in the Thruster Bay." << std::endl;
+            std::cout << std::endl;
 
-            cout << "Hm, I last remember the keys in the Corporals room. I'll check there." << endl;
+            std::cout << "Hm, I last remember the keys in the Corporals room. I'll check there." << std::endl;
             return "";
 
         }
 
-        cout << "[SYSTEM MESSAGE]: Welcome Captain Acker!" << endl;
-        cout << "[SYSTEM MESSAGE]: Please insert alien sample into the Auto Science Desk or type Exit:" << endl;
-        cout << endl;
+        std::cout << "[SYSTEM MESSAGE]: Welcome Captain Acker!" << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Please insert alien sample into the Auto Science Desk or type Exit:" << std::endl;
+        std::cout << std::endl;
 
         currentPlayer.printInventory();
 
-        getline(cin, input);
+        getline(std::cin, input);
 
         while(strLowerGrid(input) != "toxic syringe" && strLowerGrid(input) != "exit"){
 
-            cout << endl;
-            cout << "[SYSTEM MESSAGE]: Non Bio Compounds Found! Please enter an alien sample exit." << endl;
+            std::cout << std::endl;
+            std::cout << "[SYSTEM MESSAGE]: Non Bio Compounds Found! Please enter an alien sample exit." << std::endl;
 
-            getline(cin, input);
+            getline(std::cin, input);
 
         }
 
         if(strLowerGrid(input) == "exit"){
 
-            cout << "[SYSTEM MESSAGE]: Goodbye!" << endl;
+            std::cout << "[SYSTEM MESSAGE]: Goodbye!" << std::endl;
             return "";
 
         }
 
         if(!currentPlayer.getInventoryItem("Toxic Syringe")){
 
-            cout << "[SYSTEM MESSAGE]: You do not have the items required! Go collect a sample with your syringe!" << endl;
+            std::cout << "[SYSTEM MESSAGE]: You do not have the items required! Go collect a sample with your syringe!" << std::endl;
             return "";
 
         }
 
-        cout << "[SYSTEM MESSAGE]: Processing Organics..." << endl;
-        cout << "[SYSTEM MESSAGE]: Removing keratin..." << endl;
-        cout << "[SYSTEM MESSAGE]: Yielding product..." << endl;
-        cout << endl;
-        cout << "[CURE COMPLETE]" << endl;
-        cout << endl;
-        cout << "[SYSTEM MESSAGE]: Depositing cure..." << endl;
+        std::cout << "[SYSTEM MESSAGE]: Processing Organics..." << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Removing keratin..." << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Yielding product..." << std::endl;
+        std::cout << std::endl;
+        std::cout << "[CURE COMPLETE]" << std::endl;
+        std::cout << std::endl;
+        std::cout << "[SYSTEM MESSAGE]: Depositing cure..." << std::endl;
 
         currentPlayer.addToInventory("Canister of Blight Cure");
 
-        cout << endl;
-        cout << "[Canister of Blight Cure Acquired!]" << endl;
+        std::cout << std::endl;
+        std::cout << "[Canister of Blight Cure Acquired!]" << std::endl;
 
         cureFound = true;
 
@@ -2058,13 +2056,13 @@ string Grid::modGame(Player &currentPlayer){
 
     }else if(nearbyCoords("[0]").xPos != -1){ // Module Already Complete
 
-        cout << "This module is already completed!" << endl;
+        std::cout << "This module is already completed!" << std::endl;
         return "";
 
     }
     
 
-    cout << "Move closer to the module!" << endl;
+    std::cout << "Move closer to the module!" << std::endl;
     return "";
 }
 

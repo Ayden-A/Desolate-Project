@@ -2,16 +2,14 @@
 #include "GameState.h"
 #include <fstream>
 
-using namespace std;
-
 GameState::GameState(){
 
-    vector<Cell> Cryochamber;
-    vector<Cell> Reactor;
-    vector<Cell> Science;
-    vector<Cell> Weapons;
-    vector<Cell> Quarters;
-    vector<Cell> Thrusters;
+    std::vector<Cell> Cryochamber;
+    std::vector<Cell> Reactor;
+    std::vector<Cell> Science;
+    std::vector<Cell> Weapons;
+    std::vector<Cell> Quarters;
+    std::vector<Cell> Thrusters;
 
     for(int i = 0; i < ACCOUNTS_SIZE; i++){
 
@@ -32,7 +30,7 @@ GameState::GameState(){
 
 bool GameState::saveIsValid(){
 
-    ifstream readFile;
+    std::ifstream readFile;
 
     readFile.open("saveFile.txt");
 
@@ -57,10 +55,10 @@ bool GameState::readSave(){
 
     }
 
-    ifstream readFile;
+    std::ifstream readFile;
     
     int lineCount = 0;
-    string line = "";
+    std::string line = "";
     int lineLength = 0;
 
     int accountIndex = -1;
@@ -270,13 +268,13 @@ void GameState::setProfileIndex(int index){
 
 }
 
-string GameState::getUsername(){
+std::string GameState::getUsername(){
 
     return accounts[currentProfIndex].username;
 
 }
 
-void GameState::setUsername(string username){
+void GameState::setUsername(std::string username){
 
     accounts[currentProfIndex].username = username;
 
@@ -294,13 +292,13 @@ void GameState::setDaysRemaining(int daysRemaining){
 
 }
 
-vector<string> GameState::getVisited(){
+std::vector<std::string> GameState::getVisited(){
 
     return accounts[currentProfIndex].visitedMaps;
 
 }
 
-bool GameState::mapExists(string mapName){
+bool GameState::mapExists(std::string mapName){
 
     for(int i = 0; i < accounts[currentProfIndex].visitedMaps.size(); i++){
 
@@ -316,13 +314,13 @@ bool GameState::mapExists(string mapName){
 
 }
 
-void GameState::addVisited(string mapName){
+void GameState::addVisited(std::string mapName){
 
     accounts[currentProfIndex].visitedMaps.push_back(mapName);
 
 }
 
-int GameState::getMapIndex(string mapName){
+int GameState::getMapIndex(std::string mapName){
 
     if(mapName == "Cryochambers.txt"){
 
@@ -363,36 +361,36 @@ int GameState::getMapIndex(string mapName){
     return -1;
 }
 
-void GameState::addAnomoly(Cell newCell, string mapName){
+void GameState::addAnomoly(Cell newCell, std::string mapName){
 
     accounts[currentProfIndex].anomolies[getMapIndex(mapName)].push_back(newCell);
 
 }
 
-vector<vector<Cell>> GameState::getAnomolies(){
+std::vector<std::vector<Cell>> GameState::getAnomolies(){
 
     return accounts[currentProfIndex].anomolies;
 
 }
 
-void GameState::printVisited(string currMap){
+void GameState::printVisited(std::string currMap){
 
-    cout << "[Current Room] " << currMap.substr(0, currMap.length()-4) << endl;
+    std::cout << "[Current Room] " << currMap.substr(0, currMap.length()-4) << std::endl;
 
-    cout << endl;
+    std::cout << std::endl;
 
     //Top Line
-    cout << "         [Quarters]" << endl;
-    cout << "            |" << endl;
+    std::cout << "         [Quarters]" << std::endl;
+    std::cout << "            |" << std::endl;
 
     //Mid Line
-    cout << "[Cryo] -> [Weapons] -> [Thrusters]" << endl;
+   std::cout << "[Cryo] -> [Weapons] -> [Thrusters]" << std::endl;
 
     //Bottom Line
-    cout << "  |" << endl;
-    cout << "[Reactor] -> [Science Lab]" << endl;
+   std::cout << "  |" << std::endl;
+   std::cout << "[Reactor] -> [Science Lab]" << std::endl;
 
-    cout << endl;
-    cout << endl;
+   std::cout << std::endl;
+   std::cout << std::endl;
 
 }

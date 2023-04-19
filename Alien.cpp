@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Alien.h"
 
-using namespace std;
-
 
 Alien::Alien(){
 
@@ -83,11 +81,11 @@ void Alien::printHealthBar(){
 
     int barSegments = health / 5;
 
-    cout << "ALIEN HEALTH: " << health << " [";
+    std::cout << "ALIEN HEALTH: " << health << " [";
 
     for(int i = 0; i < barSegments; i++){
 
-        cout << "+";
+        std::cout << "+";
 
     }
 
@@ -95,12 +93,12 @@ void Alien::printHealthBar(){
 
         for(int i = 0; i < 10 - barSegments; i++){
 
-            cout << " ";
+            std::cout << " ";
 
         }
 
     }
 
-    cout << "]" << endl;
+    std::cout << "]" << std::endl;
 
 }

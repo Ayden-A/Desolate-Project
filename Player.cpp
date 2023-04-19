@@ -1,7 +1,6 @@
 #include <iostream>
 #include "Player.h"
 
-using namespace std;
 
 Player::Player(){
 
@@ -20,11 +19,11 @@ Player::Player(){
 
 }
 
-string Player::PLR_strLower(string inputString){
+std::string Player::PLR_strLower(std::string inputString){
 
     int stringLength = inputString.length();
 
-    string result = "";
+    std::string result = "";
 
     for(int i = 0; i < stringLength; i++){
 
@@ -45,11 +44,11 @@ string Player::PLR_strLower(string inputString){
 
 }
 
-string PLR_fixString(string inputString){
+std::string PLR_fixString(std::string inputString){
 
     int stringLength = inputString.length();
 
-    string result = "";
+    std::string result = "";
 
     bool cap = true;
 
@@ -96,7 +95,7 @@ int Player::getSteps(){
 
 }
 
-string Player::getSpeed(){
+std::string Player::getSpeed(){
 
     return speed;
 
@@ -114,13 +113,13 @@ int Player::getYPos(){
 
 }
 
-string Player::getDirection(){
+std::string Player::getDirection(){
 
     return direction;
 
 }
 
-string Player::getEquipped(){
+std::string Player::getEquipped(){
 
     return equippedItem;
 
@@ -130,12 +129,12 @@ bool Player::getInventoryItem(std::string itemName){
 
     if(inventory.size() <= 0){
 
-        cout << "Inventory is empty!" << endl;
+        std::cout << "Inventory is empty!" << std::endl;
         return false;
 
     }
 
-    string loweredItem = PLR_strLower(itemName);
+    std::string loweredItem = PLR_strLower(itemName);
 
     for(int i = 0; i < inventory.size(); i++){
 
@@ -151,7 +150,7 @@ bool Player::getInventoryItem(std::string itemName){
 
 }
 
-bool Player::addToInventory(string itemName){
+bool Player::addToInventory(std::string itemName){
 
     if(inventory.size() == 0){ // Backpack is empty, add it.
 
@@ -176,7 +175,7 @@ bool Player::addToInventory(string itemName){
 
 }
 
-bool Player::removeFromInventory(string itemName){
+bool Player::removeFromInventory(std::string itemName){
 
     if(inventory.size() == 0){
 
@@ -211,13 +210,13 @@ void Player::setSteps(int steps_){
 
 }
 
-void Player::setDirection(string direction_){
+void Player::setDirection(std::string direction_){
 
     direction = direction_;
 
 }
 
-void Player::setSpeed(string speed_){
+void Player::setSpeed(std::string speed_){
 
     speed = speed_;
 
@@ -226,7 +225,7 @@ void Player::setSpeed(string speed_){
 void Player::setXPos(int xPos_){
 
     xPos = xPos_;
-
+    
 }
 
 void Player::setYPos(int yPos_){
@@ -235,9 +234,9 @@ void Player::setYPos(int yPos_){
 
 }
 
-bool Player::setEquipped(string itemName){
+bool Player::setEquipped(std::string itemName){
 
-    string loweredItem = PLR_strLower(itemName);
+    std::string loweredItem = PLR_strLower(itemName);
 
     if(getInventoryItem(loweredItem)){
 
@@ -263,16 +262,16 @@ void Player::printInventory(){
 
     if(inventory.size() <= 0){
 
-        cout << "Your inventory is empty!" << endl;
-        cout << endl;
+        std::cout << "Your inventory is empty!" << std::endl;
+        std::cout << std::endl;
         return;
 
     }
 
-    cout << "[Inventory]:" << endl;
+    std::cout << "[Inventory]:" << std::endl;
     for(int i = 0; i < inventory.size(); i++){
 
-        cout << " =[ " << inventory[i] << " ]= " << endl;
+        std::cout << " =[ " << inventory[i] << " ]= " << std::endl;
 
     }
 
@@ -288,11 +287,11 @@ void Player::printHealthBar(){
 
     int barSegments = health / 5;
 
-    cout << "YOUR HEALTH: " << health << " [";
+    std::cout << "YOUR HEALTH: " << health << " [";
 
     for(int i = 0; i < barSegments; i++){
 
-        cout << "+";
+        std::cout << "+";
 
     }
 
@@ -300,12 +299,12 @@ void Player::printHealthBar(){
 
         for(int i = 0; i < 20 - barSegments; i++){
 
-            cout << " ";
+            std::cout << " ";
 
         }
 
     }
 
-    cout << "]" << endl;
+    std::cout << "]" << std::endl;
 
 }

@@ -47,6 +47,33 @@ string strLower(string inputString){
 
 }
 
+vector<string> splitString(string str){
+
+    string currWord;
+
+    vector<string> cmdLine;
+
+    for(int i = 0; i < str.length(); i++){
+        if(str[i] == ' '){
+            cmdLine.push_back(currWord);
+            currWord = "";
+        }else{
+            currWord += str[i];
+        }
+    }
+
+    cmdLine.push_back(currWord);
+
+    for(int i = 0; i < cmdLine.size(); i++){
+
+        cout << "[" << cmdLine[i] << "]" << endl;
+
+    }
+
+    return cmdLine;
+
+}
+
 string fixString(string inputString){
 
     int stringLength = inputString.length();
@@ -1016,6 +1043,7 @@ int main(){
     bool debugPanel = false;
     bool infiniteSteps = false;
     bool godMode = false;
+    vector<string> cmdLine;
 
     // User Input
     char input = 'a';
@@ -1239,6 +1267,8 @@ int main(){
             cout << "[ENTER TEXT]: ";
             getline(cin, strInput);
 
+            cmdLine = splitString(strLower(strInput));
+
         }
 
         menuSpacer();
@@ -1461,95 +1491,147 @@ int main(){
             gamePlayer.setHealth(1000);
             godMode = true;
 
-        }else if(strLower(strInput) == "dev_fullbright"){ // Fullbright Mode
+        }else if(cmdLine[0] == "dev_fullbright"){ // Fullbright Mode
 
-            if(visionConeEnabled){
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_fullbright <true/false>" << endl;
+
+            }else if(cmdLine[1] == "true"){
 
                 cout << "[Fullbright Enabled]" << endl;
                 visionConeEnabled = false;
 
-            }else{
+            }else if(cmdLine[1] == "false"){
 
                 cout << "[Fullbright Disabled]" << endl;
                 visionConeEnabled = true;
 
+            }else{
+
+                cout << "[ERROR] dev_fullbright <true/false>" << endl;
+
             }
 
-        }else if(strLower(strInput) == "dev_aggro"){ // Aggression Mode
+        }else if(cmdLine[0] == "dev_aggro"){ // Aggression Mode
 
-            if(fightsEnabled){
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_aggro <true/false>" << endl;
+
+            }else if(cmdLine[1] == "false"){
 
                 cout << "[Fighting Disabled]" << endl;
                 fightsEnabled = false;
 
-            }else{
+            }else if(cmdLine[1] == "true"){
 
                 cout << "[Fighting Enabled]" << endl;
                 fightsEnabled = true;
 
+            }else{
+
+                cout << "[ERROR] dev_aggro <true/false>" << endl;
+
             }
 
-        }else if(strLower(strInput) == "dev_infinitesteps"){ // Infinite Steps
+        }else if(cmdLine[0] == "dev_infinitesteps"){ // Infinite Steps
 
-            if(infiniteSteps){
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_infinitesteps <true/false>" << endl;
+
+            }else if(cmdLine[1] == "false"){
 
                 cout << "[Infinite Steps Disabled]" << endl;
                 infiniteSteps = false;
 
-            }else{
+            }else if(cmdLine[1] == "true"){
 
                 cout << "[Infinite Steps Enabled]" << endl;
                 infiniteSteps = true;
 
+            }else{
+
+                cout << "[ERROR] dev_infinitesteps <true/false>" << endl;
+
             }
 
-        }else if(strLower(strInput) == "dev_debugger"){ // Debug Panel
+        }else if(cmdLine[0] == "dev_debugger"){ // Debug Panel
 
-            if(debugPanel){
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_debugger <true/false>" << endl;
+
+            }else if(cmdLine[1] == "false"){
 
                 cout << "[Debugger Disabled]" << endl;
                 debugPanel = false;
 
-            }else{
+            }else if(cmdLine[1] == "true"){
 
                 cout << "[Debugger Enabled]" << endl;
                 debugPanel = true;
 
+            }else{
+
+                cout << "[ERROR] dev_debugger <true/false>" << endl;
+
             }
 
-        }else if(strLower(strInput) == "dev_godmode"){ // God Mode
+        }else if(cmdLine[0] == "dev_godmode"){ // God Mode
 
-            if(godMode){
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_godmode <true/false>" << endl;
+
+            }else if(cmdLine[1] == "false"){
 
                 cout << "[God Mode Disabled]" << endl;
                 gamePlayer.setHealth(100);
                 godMode = false;
 
-            }else{
+            }else if(cmdLine[1] == "true"){
 
                 cout << "[God Mode Enabled]" << endl;
                 gamePlayer.setHealth(1000);
                 godMode = true;
 
+            }else{
+
+                cout << "[ERROR] dev_godmode <true/false>" << endl;
+
             }
 
-        }else if(strLower(strInput) == "dev_tp"){ // Teleport
+        }else if(cmdLine[0] == "dev_tp"){ // Teleport
 
-            cout << "[ENTER MAP NAME]: ";
+            if(cmdLine.size() < 2){
 
-            getline(cin, strInput);
+                cout << "[ERROR] dev_tp <Map Name>" << endl;
 
-            gameMap.changeMap(gamePlayer, currGame.getAnomolies(), strInput);
+            }else{
 
-        }else if(strLower(strInput) == "dev_giveitem"){ // Give Item
+                gameMap.changeMap(gamePlayer, currGame.getAnomolies(), cmdLine[1]);
 
-            cout << "[ENTER ITEM NAME]: ";
+            }
 
-            getline(cin, strInput);
+            
 
-            gamePlayer.addToInventory(fixString(strInput));
+        }else if(cmdLine[0] == "dev_giveitem"){ // Give Item
 
-        }else if(strLower(strInput) == "dev_skipday"){ // Give Item
+            if(cmdLine.size() < 2){
+
+                cout << "[ERROR] dev_giveitem <Item Name>" << endl;
+
+            }else{
+
+                gamePlayer.addToInventory(fixString(cmdLine[1]));
+
+            }
+
+            
+
+        }else if(cmdLine[0] == "dev_skipday"){ // Skip Day
 
             gamePlayer.setSteps(0);
 
