@@ -1,0 +1,33 @@
+ ~ ~ ~ Desolate ~ ~ ~
+
+1. Start organization of save data
+
+2. Enhance vision cone [DONE]
+        - Make vision stop on dashes (-) [CONSIDERING]
+        - Make cone wider
+        - See if an equation will ease calculation. Fullbright is much faster than vision cone.
+
+3. Create end game scenarios
+        - If all modules fixed but aliens are alive and cure un-made = Ship landed but the aliens begin flooding already devastated human population
+        - If not everything is fixed = The ship malfunctions due to power inconsistencies and crashes. Aliens are released
+        - If aliens are all dead but cure un-made = You have made it back safely to give the news that no cure was found. Time to look for another way...
+        
+        - Perfect Scenario = You land home with the cure to the blight. The food crisis is averted and humans advance their understanding of extraterrestrial life
+
+
+
+3/22/2023 ToDo:
+
+        * Fix endings, they can bug and you have to skip like 3 menus
+        * Organize what relies on what. Take root data and organize it for saving.
+
+3/23/2023 ToDo:
+
+        * Change dev commands to have arguments
+
+
+EXTRA Needs Time:
+
+    * Create distraction items (flares, bottles, etc). This should draw an alien to a spot for 4-8 Steps
+
+    * Create alien paths. This includes, idle and distraction. Detection is instant and the fight should immediately ensue

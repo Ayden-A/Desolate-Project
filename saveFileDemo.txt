@@ -1,0 +1,9 @@
+1
+Ayden
+
+2
+[Username]
+[Player] Health,Speed,Direction,Steps,XPos,YPos
+[Map] currMap,visitedMaps,anomolies
+daysLeft
+3
