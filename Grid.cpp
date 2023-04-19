@@ -1624,7 +1624,7 @@ std::string Grid::modGame(Player &currentPlayer){
         std::cout << "[ENTER TO CONTINUE]" << std::endl;
         getline(std::cin, input);
 
-        reactorFixed = true;;
+        reactorFixed = true;
 
         return "powerEnabled";
 
